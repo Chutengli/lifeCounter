@@ -16,6 +16,9 @@
 		B01006B128160202006506E6 /* lifecounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01006B028160202006506E6 /* lifecounterTests.swift */; };
 		B01006BB28160202006506E6 /* lifecounterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01006BA28160202006506E6 /* lifecounterUITests.swift */; };
 		B01006BD28160202006506E6 /* lifecounterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01006BC28160202006506E6 /* lifecounterUITestsLaunchTests.swift */; };
+		B0C94CEF281BE4D400044A31 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C94CEE281BE4D400044A31 /* Player.swift */; };
+		B0E48557281E59CB0070C06A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E48556281E59CB0070C06A /* TableViewCell.swift */; };
+		B0E4855D281E8D240070C06A /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E4855C281E8D240070C06A /* HistoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		B01006B628160202006506E6 /* lifecounterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lifecounterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B01006BA28160202006506E6 /* lifecounterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lifecounterUITests.swift; sourceTree = "<group>"; };
 		B01006BC28160202006506E6 /* lifecounterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lifecounterUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B0C94CEE281BE4D400044A31 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		B0E48556281E59CB0070C06A /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		B0E4855C281E8D240070C06A /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,9 +109,12 @@
 				B010069B28160200006506E6 /* SceneDelegate.swift */,
 				B010069D28160200006506E6 /* ViewController.swift */,
 				B010069F28160200006506E6 /* Main.storyboard */,
+				B0E48556281E59CB0070C06A /* TableViewCell.swift */,
+				B0E4855C281E8D240070C06A /* HistoryViewController.swift */,
 				B01006A228160202006506E6 /* Assets.xcassets */,
 				B01006A428160202006506E6 /* LaunchScreen.storyboard */,
 				B01006A728160202006506E6 /* Info.plist */,
+				B0C94CEE281BE4D400044A31 /* Player.swift */,
 			);
 			path = lifecounter;
 			sourceTree = "<group>";
@@ -258,7 +267,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0E48557281E59CB0070C06A /* TableViewCell.swift in Sources */,
+				B0C94CEF281BE4D400044A31 /* Player.swift in Sources */,
 				B010069E28160200006506E6 /* ViewController.swift in Sources */,
+				B0E4855D281E8D240070C06A /* HistoryViewController.swift in Sources */,
 				B010069A28160200006506E6 /* AppDelegate.swift in Sources */,
 				B010069C28160200006506E6 /* SceneDelegate.swift in Sources */,
 			);

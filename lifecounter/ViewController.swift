@@ -7,91 +7,104 @@
 
 import UIKit
 
-let INITIAL_LIFE: Int = 20
-
-class ViewController: UIViewController {
-    @IBOutlet weak var playerOnePlusPressed: UIButton!
-    @IBOutlet weak var playerOneMinusPressed: UIButton!
-    @IBOutlet weak var playerOnePlusFive: UIButton!
-    @IBOutlet weak var playerOneMinusFive: UIButton!
-    @IBOutlet weak var playerOneLabel: UILabel!
+class ViewController: UIViewController, TableViewCellProtocol {
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var removeButton: UIButton!
     
-    @IBOutlet weak var playerTwoPlus: UIButton!
-    @IBOutlet weak var playerTwoMinus: UIButton!
-    @IBOutlet weak var playerTwoPlusFive: UIButton!
-    @IBOutlet weak var playerTwoMinusFive: UIButton!
-    @IBOutlet weak var playerTwoLabel: UILabel!
     
-    var player1: Int = INITIAL_LIFE {
-        didSet {
-            if (player1 <= 0) {
-                showAlert("player1")
-            }
-        }
-    }
-    var player2: Int = INITIAL_LIFE {
-        didSet {
-            if (player2 <= 0) {
-                showAlert("player2")
-            }
-        }
-    }
+    var players: [Player] = []
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        playerOneLabel.text = String(player1)
-        playerTwoLabel.text = String(player2)
+    var history: String = ""
+    
+    
+    func plusButtonClicked(_ score: Int, _ degree: Int, _ player: Player) {
+        addButton.isEnabled = false
+        removeButton.isEnabled = false
+        
+        
+        history += "\(player.name) gained \(degree) score(s) \n"
         
     }
     
-    
-    @IBAction func button2PlusClicked(_ sender: UIButton) {
-        player2 += 1
-        playerTwoLabel.text = String(player2)
-    }
-    
-    @IBAction func buttonMinusClicked(_ sender: UIButton) {
-        player2 -= 1
-        playerTwoLabel.text = String(player2)
-    }
-    
-    @IBAction func buttonPlusFiveClicked(_ sender: UIButton) {
-        player2 += 5
-        playerTwoLabel.text = String(player2)
-    }
-    
-    @IBAction func button2MinusFiveClicked(_ sender: UIButton) {
-        player2 -= 5
-        playerTwoLabel.text = String(player2)
-    }
-    
-    @IBAction func button1PlusClicked(_ sender: UIButton) {
-        player1 += 1
-        playerOneLabel.text = String(player1)
-    }
-    
-    @IBAction func button1MinusClicked(_ sender: UIButton) {
-        player1 -= 1
-        playerOneLabel.text = String(player1)
-    }
-    
-    @IBAction func button1PlusFiveClicked(_ sender: UIButton) {
-        player1 += 5
-        playerOneLabel.text = String(player1)
-    }
-    
-    @IBAction func button1MinusFiveClicked(_ sender: UIButton) {
-        player1 -= 5
-        playerOneLabel.text = String(player1)
+    func minusButtonClicked(_ score: Int, _ degree: Int, _ player: Player) {
+        addButton.isEnabled = false
+        removeButton.isEnabled = false
+        
+        for player in players {
+            if (player.score <= 0) {
+                let alert = UIAlertController(title: "Result", message: "\(player.name) is lost", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        
+        history += "\(player.name) lost \(degree) score(s) \n"
     }
     
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        for i in 1...4 {
+            players.append(Player(20, String(i)))
+        }
+                
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
     
+    @IBAction func historyButtonClicked(_ sender: Any) {
+        performSegue(withIdentifier: "showHistory", sender: self)
+    }
     
-    @IBAction func showAlert(_ lost: String) {
-        let alert = UIAlertController(title: "Result", message: "\(lost) has lost", preferredStyle: UIAlertController.Style.alert)
-        self.present(alert, animated: true, completion: nil)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showHistory" {
+            if let hisVC = segue.destination as? HistoryViewController {
+                hisVC.history = "\(history)"
+            }
+        }
+    }
+    
+    @IBAction func addButtonClicked(_ sender: Any) {
+        players.append(Player(20, String(players.count)))
+        tableView.reloadData()
+    }
+    
+    @IBAction func removeButtonClicked(_ sender: Any) {
+        players.remove(at: players.count - 1)
+        tableView.reloadData()
+        
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil
+    }
+}
+
+extension ViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as?
+            TableViewCell {
+            cell.player = players[indexPath.section]
+            cell.configCell()
+            cell.delegate = self
+            return cell
+        }
+        
+        return UITableViewCell()
+            
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return players.count
     }
 
 }
