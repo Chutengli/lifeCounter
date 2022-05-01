@@ -72,7 +72,13 @@ class ViewController: UIViewController, TableViewCellProtocol {
     }
     
     @IBAction func removeButtonClicked(_ sender: Any) {
-        players.remove(at: players.count - 1)
+        if (players.count > 0) {
+            players.remove(at: players.count - 1)
+        } else {
+            let alert = UIAlertController(title: "Error", message: "No more player to be removed", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
         tableView.reloadData()
         
     }
